@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "cinequotes-345605",
+  "private_key_id": "9a6597a49e434bdf28d2919c279998dec87e0b16",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCxfWlkGpdQr2pC\nXxZKh966sUOloy8XZMkibvOWFxdO7PVRBzOes0S0c+GzEhvatL1JWVDgGWByUoLd\nNp6WREl4Sn73dKTmc9F0LIheojz+xZNFhgvRvHzmOgCnejHEaWep8fKMftpl/qov\ntY8TjdrgIOST8Yc6JhPLMJ7qBng1mtIQGGmRWVrWtysZWO7K0AViHQaIrxtMsw8b\nMD+IF99mnqJXyslaws6fAfIFX6vRWz6qGT8BnQugGjSbo/3+zWj/AVDkFMnfs3di\nAsfDv6vfMIMJRnrelCyTCIsGRQGAlyT6d6aMnlJxSqxYYLs1AqBn5vMLO+pahfuC\nSTDybu/XAgMBAAECggEAAWM0mWFn1hajowSGnRXg1N7L45XvU/nSugqErE4JPZxh\nR+fhgcJvArt2g+WGrY1aKXehnTmK5SSQp1Vk+fxrV/MPzl7CvJZ33bZMvp36vMHN\n++4nViq+DeKy3JxPmp8kU1IejktI6SE2MrdITg5+1opgnxN1S4FpXYjyGmxAhlK9\n2nI23SnJlIJFMdiHGGCzl0fUTznakniFYQBcI7a9XGQFnymCDgjaEXp/KvEMfMSg\nA6KtRGn17VzKAD0BJOa3WFQpebBR7wrG9IHKxd8VoC+7phf0FNmeom+NYmSWk6EZ\nNTdryoMJMTVomLSQrjSgmoHYVQIb2Cd32rJ4vzD/+QKBgQDWZaggNlxQ8YMNdZ8G\neyGIVSwMBCrmpl956SuyhyLtYVCYqEvC1Kuz+0mlhriH8SsRoaauQXs5xCLrH4ms\n8mm8m+gKgiBWHwV4WrGC/qj4SXX4IDzWAsSNfzv9wxBqAdIVuXZMSugFV6vOjFhN\nlLM6lmGcTxuwUG0WFLxqml/FZQKBgQDT7lxPqZyQKOal04AkJySYCruNOlEBr/C4\n6TIeCgLmIUMJ7Tl2WKqfjfOajt4OezKd1E14uIXq2RwU1rUw8yRsvUlXcjaZDBvC\nbQtXQmlmKp56Ag24cbI7SAFGK2a9seYeliKpEn78Mnh9IuVCGj5WbYdAUqQMRWcB\n/krt0fCaiwKBgQC5jngpkQLrJ2vGbWN6R31pMlYR/FVpFNuTdsRUGnOXQd9wkFAp\nysjk1/sQoP364jblZqQNMy1EfMW/+6a7oX70N3doCOGVx/mDBfOWrXNumJ3aZ4Rf\nsTuOP22bnoUJSpQaK08AjuArJ4rSFFOkqatJbLgEgc80FRekwcOk/AEhpQKBgH1A\n2ePnHXYCBlcpSgmT7MfDSBduyOOTZVUT1Z/1UMNMEz/xqU1tl+HW1ouZNloeq8ql\n5+eaPuOOz07tmobEnNl7gbYh9Wy8wEdHhTVcNcjBFYqMXimNYMYyhzY+fmlMk/Gt\nz+xW1yAcgCONFSvdMMyJzS7R6Myr0/ZUoVovAuGDAoGAYdDluay+Qvbp2w/SgXwj\nSBQDJQBxCijREOzZa/fDun6UbK9kd6IUNONOBtYx130d0sXIK+PaQcJJ7cVlLdwj\nbMX4zxQzzUx/dKlsSHouljmYPsQqdutz8ddvYdcYOJpa5pjJQr62jVgR5cfrEg1q\nEYdrsk+by5EFrB1yUVu4Jcs=\n-----END PRIVATE KEY-----\n",
+  "client_email": "cinequotes-pubsub-test@cinequotes-345605.iam.gserviceaccount.com",
+  "client_id": "103997011126692591114",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cinequotes-pubsub-test%40cinequotes-345605.iam.gserviceaccount.com"
+}
