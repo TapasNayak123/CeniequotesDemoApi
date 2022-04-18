@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { CineListModel } from "../models/CineListModel";
 import dbConfig from "../config/dbConfig";
 export class GetMovieList {
+    public static request:string;
+    public static response:string;
     public async getMovieLists(req: Request, resp: Response) {
         const cineQuotList: any = [];
         try {

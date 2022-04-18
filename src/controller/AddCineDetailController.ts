@@ -1,16 +1,13 @@
 import { Request, Response } from 'express';
-import PubSub = require("@google-cloud/pubsub");
 import { CineListModel } from "../models/CineListModel";
 import dBConfig from "../config/dbConfig";
-import { GoogleTranslateConfig } from '../config/GoogleTranslateConfig';
-import AppConfig from '../config/AppConfig';
-
+import axios from 'axios';
 export class AddCineDetailController {
 
     public async addCineDetails(request: Request, response: Response) {
         const requestBody: CineListModel = request.body;
+      //  this.getTranslatedQuotes(requestBody)
         this.addDataToDB(requestBody, response);
-        // this.doPubSubConfiguration(requestBody)
     }
     private async addDataToDB(requestBody: CineListModel, response: Response) {
         const dbInstance = dBConfig.cineQuotesDB.doc();
@@ -22,14 +19,16 @@ export class AddCineDetailController {
             const isMovieAdded = await dBConfig.cineQuotesDB.where('FilmTitle', '==', requestBody.FilmTitle).get();
             if (isMovieAdded.docs.length > 0) {
                 return response.json({
+                    status: 200,
                     success: true,
                     msg: "Movie Already Added !!!!!!!!!!!!"
                 })
             } else {
                 await dbInstance.set(requestBody)
                     .then(added => {
-                        this.doPubSubConfiguration(requestBody);
+                        this.getTranslatedQuotes(requestBody)
                         return response.json({
+                            status: 200,
                             success: true,
                             msg: "User added successfully"
                         })
@@ -44,15 +43,9 @@ export class AddCineDetailController {
             return err;
         }
     }
-
-    private async transalateDataToExpectedlanguage(quoteData: string, requestBody: CineListModel) {
-        const translatedText = await new GoogleTranslateConfig().translateEnglishToFrench(quoteData)
-        requestBody.Quote.FR = translatedText;
-        this.updateQuotesToDB(requestBody);
-    }
     private async updateQuotesToDB(requestBody: CineListModel) {
         const dbInstance = dBConfig.cineQuotesDB.doc(requestBody.id);
-        await dbInstance.set(requestBody , { merge: true })
+        await dbInstance.set(requestBody, { merge: true })
             .then(updated => {
                 console.log("database updated successfully !!!!!!!!!")
             })
@@ -61,38 +54,24 @@ export class AddCineDetailController {
             })
 
     }
-
-    private async doPubSubConfiguration(requestBody: CineListModel) {
-        // Pubsub related work will done here
-        const pubSub: PubSub.PubSub = new (PubSub as any).PubSub();
-        // pubSub.
-        const [topic] = await pubSub.createTopic(AppConfig.PUBSUB_TOPIC_NAME);
-        const [subscription] = await topic.createSubscription(AppConfig.PUBSUB_TOPIC_SUBSCRIPTION);
-        subscription.on('message', message => {
-            this.transalateDataToExpectedlanguage(JSON.parse(message.data).quoteText, requestBody)
-            message.ack();
-            this.clearPubSubData(AppConfig.PUBSUB_TOPIC_SUBSCRIPTION, AppConfig.PUBSUB_TOPIC_NAME,pubSub);
-        });
-        const pubsubData = {
-            quoteText: requestBody.Quote.EN
+    private async getTranslatedQuotes(requestBody: CineListModel) {
+        const trnslateReq = {
+            "defaultLanguage":requestBody.defaultLanguage,
+            "quote": (requestBody.defaultLanguage === 1) ? requestBody.Quote.EN : requestBody.Quote.FR
         }
-        const data = Buffer.from(JSON.stringify(pubsubData));
-        topic.publishMessage({ data }, err => {
-            if (err) {
-                console.log("Inside error block!!!!!!!!!")
-            } else {
-                console.log("Message published !!!!!!!!!", data.toString())
-            }
-        });
+        await axios.post('http://localhost:8085/translate-api/translate',trnslateReq)
+            .then(resp => {
+                if (resp.data.status) {
+                    console.log("Translated text ", resp.data.translatedText)
+                    if(requestBody.defaultLanguage === 1){
+                        requestBody.Quote.FR = resp.data.translatedText;
+                    }else {
+                        requestBody.Quote.EN = resp.data.translatedText;
+                    }
 
-    }
-
-    private async clearPubSubData(subcription:string,topicID:string,pubSubClient:PubSub.PubSub){
-        await pubSubClient.topic(topicID).delete();
-        console.log("Topic deleted !!!!!!!!!!!")
-        await pubSubClient.subscription(subcription).delete();
-        console.log("Subscription deleted !!!!!!!!!!!");
-        process.exit(0);
+                    this.updateQuotesToDB(requestBody)
+                }
+            });
 
     }
 }

@@ -2,8 +2,9 @@ import { Request, Response } from "express";
 import dbConfig from "../config/dbConfig";
 export class GetActor {
     public async getActor(req: Request, resp: Response) {
+        console.log("Print req params ", req.params)
         try {
-            const getMovieQuotes = await dbConfig.cineQuotesDB.where('FilmTitle', '==', req.params.movieName).get();
+            const getMovieQuotes = await dbConfig.cineQuotesDB.where('FilmTitle', '==', req.params.quotes).get();
             getMovieQuotes.forEach((document: any) => {
                 const quoteObj: any = document.data().Quote;
                 if (typeof quoteObj === 'undefined' || typeof quoteObj === null) {

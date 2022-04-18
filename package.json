@@ -8,7 +8,8 @@
     "build": "tsc",
     "prestart": "npm run build",
     "start": "node .",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha -r ts-node/register tests/**/*.spec.ts --timeout 100000",
+    "compile": "tsc",
     "format": "prettier-standard '**/*.ts'"
   },
   "lint-staged": {
@@ -40,15 +41,21 @@
   },
   "devDependencies": {
     "@google-cloud/datastore": "^6.6.2",
+    "@google-cloud/firestore": "^5.0.2",
     "@google-cloud/pubsub": "^2.19.0",
     "@google-cloud/translate": "^6.3.1",
-    "@types/bcrypt": "^5.0.0",
+    "@types/chai": "^4.3.0",
     "@types/express": "^4.17.13",
+    "@types/mocha": "^9.1.0",
     "@types/node": "^16.11.26",
-    "bcrypt": "^5.0.1",
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
     "chalk": "^4.1.0",
     "firebase-admin": "^10.0.2",
     "firebase-functions": "^3.19.0",
+    "mocha": "^9.2.2",
+    "npm": "^8.6.0",
+    "ts-node": "^10.7.0",
     "tslint": "^6.1.3",
     "typescript": "^4.6.3"
   }

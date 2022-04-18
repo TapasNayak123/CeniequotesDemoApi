@@ -6,14 +6,14 @@ import chalk from 'chalk';
 const app = express();
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
-// firebase configuration
-import firebase from 'firebase-admin';
-import serviceAccount from './auth-files/cinequotes-firebase-auth.json';
-firebase.initializeApp({
-  credential: firebase.credential.cert(serviceAccount as any),
-  databaseURL:AppConfig.DATABASE_URL
-});
-/** Fire base configuration ends here */
+// // firebase configuration
+// import firebase from 'firebase-admin';
+// import serviceAccount from './auth-files/cinequotes-firebase-auth.json';
+// firebase.initializeApp({
+//   credential: firebase.credential.cert(serviceAccount as any),
+//   databaseURL:AppConfig.DATABASE_URL
+// });
+// /** Fire base configuration ends here */
 import { router } from './routes/routes';
 if (app.get('env') === 'development') {
     app.use(
@@ -24,10 +24,11 @@ if (app.get('env') === 'development') {
         next: express.NextFunction
       ) => {
         // console.log(chalk.red(err));
-        res.sendStatus(err.status || 500).json({
-          status: 'error',
+        res.json({
+          status: err.status || 500,
           message: err
         })
+        next();
       }
     )
   }
@@ -40,12 +41,13 @@ if (app.get('env') === 'development') {
       next: express.NextFunction
     ) => {
       // console.log(chalk.red(err.message));
-      res.sendStatus(err.status || 500).json({
-        status: 'error',
+      res.json({
+        status: err.status || 500,
         message: err.message
       })
     }
   )
+
   app.use(router);
   app.listen(AppConfig.PORT)
   // tslint:disable-next-line:no-console
@@ -53,3 +55,4 @@ if (app.get('env') === 'development') {
     chalk.bold.green('Server listening on port ') +
     chalk.bold.white.inverse(AppConfig.PORT)
   )
+  module.exports = app;

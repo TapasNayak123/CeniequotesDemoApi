@@ -3,7 +3,7 @@ import { AddCineDetailController } from "../controller/AddCineDetailController";
 import { GetMovieList } from "../controller/GetMovieList";
 import { GetQuotes } from "../controller/GetQuotes";
 import { GetActor } from "../controller/GetActor";
-
+import dbConfig from "../config/dbConfig";
 export const router = Router();
 
 router.get("/", (req, res) => {
@@ -22,11 +22,11 @@ router.get("/cinequotes-api/getMovieList",
     (req: Request, resp: Response) => {
         return new GetMovieList().getMovieLists(req, resp)
     })
-router.get("/cinequotes-api/getQuotes/:movieName",
+router.get("/cinequotes-api/getQuotes/:movieName/quotes/:id",
     (req: Request, resp: Response) => {
         return new GetQuotes().getQuotes(req, resp)
     })
-router.get("/cinequotes-api/getQuotes/:movieName/quotes/:id",
+router.get("/cinequotes-api/getActor/:quotes/:id",
     (req: Request, resp: Response) => {
         return new GetActor().getActor(req, resp)
     })
